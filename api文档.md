@@ -5,23 +5,25 @@ API文档
 目录
 ----
 > 用户管理
-. 登录
-. 添加用户
-. 更新用户
-. 获取所有用户列表
-. 删除用户
+
+登录 &emsp;
+添加用户 &emsp;
+更新用户 &emsp;
+获取所有用户列表 &emsp;
+删除用户 &emsp;
 
 > 分类管理
-. 获取树型分类列表
-. 添加分类
-. 更新分类  
+
+获取树型分类列表 &emsp;
+添加分类 &emsp;
+更新分类 &emsp;
 
 -------------------------------------------
 
 用户管理
-----
+-
 - 登录
-请求URL:  http://www.spartan-home.com/login
+请求URL:  http://www.spartan-home.com/login 
 请求方式: POST
 参数类型:
 username    *   string  用户名
@@ -33,108 +35,134 @@ passworad   *   string  密码
   "data":{}
 }
 ```
-
-
-
-例子2
-----
-
-（简单的表格，最后一列是各种操作）
-
-```vue
-<template>
-  <s-table
-    ref="table"
-    size="default"
-    :columns="columns"
-    :data="loadData"
-  >
-    <span slot="action" slot-scope="text, record">
-      <a>编辑</a>
-      <a-divider type="vertical"/>
-      <a-dropdown>
-        <a class="ant-dropdown-link">
-          更多 <a-icon type="down"/>
-        </a>
-        <a-menu slot="overlay">
-          <a-menu-item>
-            <a href="javascript:;">1st menu item</a>
-          </a-menu-item>
-          <a-menu-item>
-            <a href="javascript:;">2nd menu item</a>
-          </a-menu-item>
-          <a-menu-item>
-            <a href="javascript:;">3rd menu item</a>
-          </a-menu-item>
-        </a-menu>
-      </a-dropdown>
-    </span>
-  </s-table>
-</template>
-
-<script>
-  import STable from '@/components/table/'
-
-  export default {
-    components: {
-      STable
-    },
-    data() {
-      return {
-        columns: [
-          {
-            title: '规则编号',
-            dataIndex: 'no'
-          },
-          {
-            title: '描述',
-            dataIndex: 'description'
-          },
-          {
-            title: '服务调用次数',
-            dataIndex: 'callNo',
-          },
-          {
-            title: '状态',
-            dataIndex: 'status',
-          },
-          {
-            title: '更新时间',
-            dataIndex: 'updatedAt',
-          },
-          {
-            table: '操作',
-            dataIndex: 'action',
-            scopedSlots: {customRender: 'action'},
-          }
-        ],
-        // 查询条件参数
-        queryParam: {},
-        // 加载数据方法 必须为 Promise 对象
-        loadData: parameter => {
-          return this.$http.get('/service', {
-            params: Object.assign(parameter, this.queryParam)
-          }).then(res => {
-            return res.result
-          })
-        },
-      }
-    },
-    methods: {
-      edit(row) {
-        // axios 发送数据到后端 修改数据成功后
-        // 调用 refresh() 重新加载列表数据
-        // 这里 setTimeout 模拟发起请求的网络延迟..
-        setTimeout(() => {
-          this.$refs.table.refresh() // refresh() 不传参默认值 false 不刷新到分页第一页
-        }, 1500)
-
-      }
+---
+商品分类
+-
+- 获取分类树形结构数据  
+  URL: http://www.spartan-home.com/api/v1/pjjp/category/tree  
+  Method: GET  
+```json
+# 参数类型:
+{}
+```
+```json
+# 响应:
+{
+  status: true,
+  code: 200,
+  message: "",
+  data: [
+    {
+      id: 1,
+      name: "U系列",
+      parent_id: null,
+      sort: 0,
+      level: 0,
+      path: "/",
+      children: [
+        {
+          id: 2,
+          name: "家具",
+          parent_id: 1,
+          sort: 0,
+          level: 1,
+          path: "/1/",
+          children: [
+            {
+            id: 3,
+            name: "沙发",
+            parent_id: 2,
+            sort: 0,
+            level: 2,
+            path: "/1/2/"
+            },
+            {
+            id: 4,
+            name: "桌几",
+            parent_id: 2,
+            sort: 0,
+            level: 2,
+            path: "/1/2/"
+            }
+          ]
+        }
+      ]
     }
-  }
-</script>
+  ]
+}
 ```
 
+- 获取分类数据  
+  URL: http://www.spartan-home.com/api/v1/pjjp/category/add  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
+
+- 添加分类  
+  URL: http://www.spartan-home.com/api/v1/pjjp/category/add  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
+
+- 编辑分类  
+  URL: http://www.spartan-home.com/api/v1/pjjp/category/upd  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
+---
+商品规格
+-
+- 获取规格数据  
+  URL: http://www.spartan-home.com/api/v1/pjjp/spec  
+  Method: GET  
+```json
+# 参数类型:
+{}
+```
+- 添加规格  
+  URL: http://www.spartan-home.com/api/v1/pjjp/spec/add  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
+- 编辑规格  
+  URL: http://www.spartan-home.com/api/v1/pjjp/spec/upd  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
+---
+商品规格选项
+-
+- 获取规格数据  
+  URL: http://www.spartan-home.com/api/v1/pjjp/param  
+  Method: GET  
+```json
+# 参数类型:
+{}
+```
+- 添加规格选项  
+  URL: http://www.spartan-home.com/api/v1/pjjp/param/add  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
+- 编辑规格选项  
+  URL: http://www.spartan-home.com/api/v1/pjjp/param/upd  
+  Method: POST  
+```json
+# 参数类型:
+{}
+```
 
 
 内置方法
@@ -181,91 +209,10 @@ alert: {
 
 
 ```javascript
-result.then(r => {
-  this.localPagination = Object.assign({}, this.localPagination, {
-    current: r.pageNo,  // 返回结果中的当前分页数
-    total: r.totalCount, // 返回结果中的总记录数
-    showSizeChanger: this.showSizeChanger,
-    pageSize: (pagination && pagination.pageSize) ||
-      this.localPagination.pageSize
-  })
-
-  // 为防止删除数据后导致页面当前页面数据长度为 0 ,自动翻页到上一页
-  if (r.data.length == 0 && this.localPagination.current != 1) {
-    this.localPagination.current--
-    this.loadData()
-    return
-  }
-
-  // 这里用于判断接口是否有返回 r.totalCount 或 this.showPagination = false
-  // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
-  !r.totalCount && ['auto', false].includes(this.showPagination) && (this.localPagination = false)
-  this.localDataSource = r.data // 返回结果中的数组数据
-  this.localLoading = false
-});
+ 
 ```
 返回 JSON 例子：
-```json
-{
-  "message": "",
-  "result": {
-    "data": [{
-        id: 1,
-        cover: 'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png',
-        title: 'Alipay',
-        description: '那是一种内在的东西， 他们到达不了，也无法触及的',
-        status: 1,
-        updatedAt: '2018-07-26 00:00:00'
-      },
-      {
-        id: 2,
-        cover: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-        title: 'Angular',
-        description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-        status: 1,
-        updatedAt: '2018-07-26 00:00:00'
-      },
-      {
-        id: 3,
-        cover: 'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png',
-        title: 'Ant Design',
-        description: '城镇中有那么多的酒馆，她却偏偏走进了我的酒馆',
-        status: 1,
-        updatedAt: '2018-07-26 00:00:00'
-      },
-      {
-        id: 4,
-        cover: 'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png',
-        title: 'Ant Design Pro',
-        description: '那时候我只会想自己想要什么，从不想自己拥有什么',
-        status: 1,
-        updatedAt: '2018-07-26 00:00:00'
-      },
-      {
-        id: 5,
-        cover: 'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png',
-        title: 'Bootstrap',
-        description: '凛冬将至',
-        status: 1,
-        updatedAt: '2018-07-26 00:00:00'
-      },
-      {
-        id: 6,
-        cover: 'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png',
-        title: 'Vue',
-        description: '生命就像一盒巧克力，结果往往出人意料',
-        status: 1,
-        updatedAt: '2018-07-26 00:00:00'
-      }
-    ],
-    "pageSize": 10,
-    "pageNo": 0,
-    "totalPage": 6,
-    "totalCount": 57
-  },
-  "status": 200,
-  "timestamp": 1534955098193
-}
+```json 
 ```
 
 

@@ -1,7 +1,7 @@
 import React,{ Component } from "react"
 import './login.less'
 import { Form, Icon, Input, Button } from 'antd';
-import {reqCateogryTree} from '../../api'
+//import {reqCateogryTree} from '../../api'
 import {message} from 'antd'
 
 const Item = Form.Item
@@ -18,8 +18,8 @@ class Login extends Component{
       if (!err) {
         /* const {username,password} = values
         reqLogin({username,password}) */
-        const response = await reqCateogryTree()
-        console.log('请求成功',response)
+        //const response = await reqCateogryTree()
+        //console.log('请求成功',response)
         message.success('登录成功')
         this.props.history.replace('/')
       }else{
