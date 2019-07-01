@@ -35,3 +35,14 @@ export const reqParamTree = ()=> ajax('/pjjp/param');
 export const reqAddParam = (data)=> ajax('/pjjp/param/add',data,'POST');
 //更新规格选项
 export const reqUpdParam = (data)=> ajax('/pjjp/param/upd',data,'POST');
+
+// 获取规格组
+export const reqSpecParam = ()=> ajax('/pjjp/spec_param');
+
+//商品
+//获取商品数据
+export const reqGoods = ()=> ajax('/pjjp/goods');
+//添加商品
+export const reqAddGoods = (data)=> ajax('/pjjp/goods/add',data,'POST');
+//更新商品
+export const reqUpdGoods = (data)=> ajax('/pjjp/goods/upd',data,'POST');

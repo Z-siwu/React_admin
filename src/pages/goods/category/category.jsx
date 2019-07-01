@@ -16,6 +16,12 @@ export default class Category extends Component{
   initColumns = () =>{
     this.columns = [
       {
+        title: '序号',        
+        width:80,        
+        render:(text,record,index)=>`${index+1}`
+        
+      },
+      {
         title: '类名',
         dataIndex: 'name',
         key: 'name',

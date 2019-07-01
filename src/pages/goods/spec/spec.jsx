@@ -14,6 +14,12 @@ export default class Spec extends Component{
     this.loading = true;
     this.columns = [
       {
+        title: '序号',        
+        width:80,        
+        render:(text,record,index)=>`${index+1}`
+        
+      },
+      {
         title: '规格名',
         dataIndex: 'name',
         key: 'name',

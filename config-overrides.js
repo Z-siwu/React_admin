@@ -5,6 +5,9 @@ module.exports = override(
     libraryName: 'antd',
     libraryDirectory: 'es',
     style: true,
+  },{
+    libraryName: 'zent',
+    style: true,
   }),
 
   addLessLoader({
